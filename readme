@@ -1,1 +1,14 @@
-### postman collection link: https://blue-resonance-711276.postman.co/workspace/blue-resonance-711276-Workspace~4981b127-e008-4e0e-8158-8e2941414065/collection/29370514-6cedfa74-cfd1-4c2f-853e-eccf2ab9ab45?action=share&source=copy-link&creator=29370514
+### postman collection link: https://blue-resonance-711276.postman.co/workspace/blue-resonance-711276-Workspace~4981b127-e008-4e0e-8158-8e2941414065/collection/29370514-6cedfa74-cfd1-4c2f-853e-eccf2ab9ab45?action=share&creator=29370514&active-environment=29370514-b419354c-b423-43a8-b375-c3f65fbc02a2
+
+
+Backend Complete (All Task and tested on postman collection)
+
+But frontend not completed (configuration and redux store take time ) only registration , login and get post and delete comment and like comment part done (private public route done)
+
+
+env for frontend :
+NEXT_PUBLIC_API_URL=http://localhost:8000/v1/api
+
+for backend :
+MONGODB_URI=mongodb://localhost:27017/social-app
+JWT_SECRET_KEY=YOUR_SECRET_KEY

@@ -17,6 +17,7 @@ export function authGuard() {
 
             next();
         } catch (err) {
+
             let error = new createError.Unauthorized(err.message);
             next(error);
         }

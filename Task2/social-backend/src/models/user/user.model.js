@@ -5,14 +5,16 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
     {
-        name: { type: String, require: true },
-        bio: { type: String },
-        profilePictureUrl: { type: String },
+        name: { type: String, required: true, unique: true },
+        bio: { type: String, required: true },
+        profilePictureUrl: { type: String, required: true },
         interests: [{ type: String, enum: ["cricket", "music", "movies"] }],
         password: { type: String, required: true },
         isActive: { type: Boolean, default: true },
         createdBy: { type: Schema.Types.ObjectId, ref: "User" },
         updatedBy: { type: Schema.Types.ObjectId, ref: "User" },
+        following: [{ type: Schema.Types.ObjectId, ref: "User" }],
+        followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     },
     { timestamps: true }
 );

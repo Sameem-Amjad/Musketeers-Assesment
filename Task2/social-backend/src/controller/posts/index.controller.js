@@ -125,6 +125,21 @@ const postController = {
         } catch (error) {
             return res.status(500).json(errorResponse(error.message || "Internal Server Error", 500));
         }
+    },
+
+    searchPosts: async (req, res) => {
+        const { q, limit, page } = req.query;
+
+        try {
+            const resBody = await postService.searchPosts(q, { limit, page });
+            if (resBody.success) {
+                res.status(200).json(dataResponse("Posts found successfully", resBody.data, 200));
+            } else {
+                res.status(404).json(dataResponse("No posts found", null, 404));
+            }
+        } catch (error) {
+            res.status(500).json(dataResponse("Error searching posts", null, 500));
+        }
     }
 }
 

@@ -5,11 +5,11 @@ const authController = {
     createUser: async (req, res) => {
         try {
             const { name, interests, bio, profilePictureUrl, password, confirmPassword } = req.body;
-            if (password != confirmPassword) {
-                res.status(401).json(errorResponse("Password and confirm password did not match", 401));
-            }
+            // if (password != confirmPassword) {
+            //     res.status(401).json(errorResponse("Password and confirm password did not match", 401));
+            // }
             if (!name && !interests && !bio) {
-                res.status(401).json(errorResponse("Please provide all the information", 401));
+                res.status(400).json(errorResponse("Please provide all the information", 400));
             }
 
             const resBody = await authService.createUser({ name, bio, interests, profilePictureUrl, password });

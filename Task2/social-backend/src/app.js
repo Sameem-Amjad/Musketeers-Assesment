@@ -10,6 +10,8 @@ import { dirname } from "path";
 import morgan from "morgan";
 import logger from "./utils/common/logger/logger.js";
 import ConnectToMongoDB from "./config/db.js";
+import { Server } from "socket.io";
+import initSocket from "./sockets/index.socket.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,9 +21,19 @@ export class App {
         dotenv.config();
         this.app = express();
         this.http = new http.Server(this.app);
+        this.initMiddleware();
+        this.io = new Server(this.http, {
+            maxHttpBufferSize: 100 * 1024 * 1024,
+            withCredentials: true,
+            transports: ["websocket", "polling"],
+            cors: {
+                origin: ["http://127.0.0.1:8000", "*"],
+            },
+        });
+
 
         this.PORT = process.env.PORT || 8000;
-        this.initMiddleware();
+        this.initSocketIO();
         ConnectToMongoDB();
         this.initRoutes();
     }
@@ -51,6 +63,11 @@ export class App {
         this.app.use(express.static(publicPath));
         this.app.use("/v1/api/", router);
     }
+
+    initSocketIO() {
+        initSocket(this.io);
+    }
+
 
     createServer() {
         this.http.listen(this.PORT, () => {

@@ -90,6 +90,21 @@ const postService = {
         } catch (error) {
             return { success: false, error: error.message };
         }
+    },
+
+    searchPosts: async (query, { limit, page }) => {
+        try {
+            const posts = await Post.find({ text: { $regex: query, $options: "i" } })
+                .limit(limit)
+                .skip((page - 1) * limit);
+            const total = await Post.countDocuments({ text: { $regex: query, $options: "i" } });
+            const totalPages = Math.ceil(total / limit);
+            const hasNextPage = page < totalPages;
+
+            return { success: true, data: { posts, total, totalPages, hasNextPage } };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
     }
 
 }
